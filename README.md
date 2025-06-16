@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 어글리어스 프론트엔드 과제
 
-## Getting Started
+어글리어스 프론트엔드에 지원해주셔서 감사합니다.
+이 프로젝트는 어글리어스 프론트엔드 과제입니다.
+이 과제는 다음과 같은 역량을 평가하기 위해 설계되었습니다.
 
-First, run the development server:
+- 리액트 상태 관리
+- 리액트 렌더링 관리
+- 테스트 코드 작성 능력
+- 타입스크립트 활용 능력
+- 요구 사항에 맞춰서 구현/설계
+- 뷰와 비즈니스 로직이 잘 분리되도록 작성
+- 웹 접근성 준수
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 과제 설명
+
+간단한 온라인 쇼핑몰 기능을 구현합니다.
+사용자는 상품 목록에서 상품을 장바구니에 담고, 장바구니 페이지에서 수량을 조절합니다.
+최종적으로 주문서 페이지에서 최종 결제 정보를 확인합니다.
+디자인은 자유롭게 해주세요.
+
+### API 실행 방법
+
+아래 명령어를 실행하면 API가 실행됩니다.
+
+```
+npx json-server db.json
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+http://localhost:3000/products
+http://localhost:3000/points
+에서 데이터를 확인할 수 있습니다.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+자세한 설명은 [json-server](https://www.npmjs.com/package/json-server)를 참고해주세요.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 요구 사항
 
-## Learn More
+3페이지를 만들어주면 됩니다. 각 페이지는 다음과 같은 요구 사항을 충족해야 합니다.
+상태 관리 라이브러리는 자유롭게 선택해주세요. 라이브러리를 사용한다면 사용 이유를 작성해주세요.
 
-To learn more about Next.js, take a look at the following resources:
+1. 상품 목록 페이지
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- 상품 목록을 표시합니다.
+- 상품 목록은 상품 이름, 가격, 재고, 장바구니 담기 버튼으로 구성됩니다.
+- 장바구니 담기 버튼을 클릭하면 장바구니에 상품이 추가됩니다.
+- 고객은 검색바로 품목명 필터링을 할 수 있습니다.
+- GET /products 엔드포인트를 통해 상품 목록을 가져옵니다.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+GET /products
 
-## Deploy on Vercel
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "가지 1개",
+      "price": 1000,
+      "stock": 100
+    },
+    {
+      "id": 2,
+      "name": "가지 2개",
+      "price": 2000,
+      "stock": 100
+    },
+    ...
+  ]
+}
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. 장바구니 페이지
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- 장바구니 목록을 표시합니다.
+- 장바구니 목록은 상품 이름, 가격, 수량, 삭제 버튼으로 구성됩니다.
+- 수량을 조절할 수 있습니다.
+- 삭제 버튼을 클릭하면 장바구니에서 상품이 삭제됩니다.
+
+3. 주문서 페이지
+
+- 주문서 페이지에서 최종 결제 정보를 확인합니다.
+- 주문서 페이지에서 최종 결제 정보는 상품 목록, 장바구니 목록, 최종 결제 금액으로 구성됩니다.
+- 최종 결제 금액은 장바구니 목록의 상품 가격과 수량을 합산한 값입니다.
+- GET /points 엔드포인트를 통해 포인트 정보를 가져옵니다. 포인트만큼 고객은 할인을 받을 수 있습니다.
+
+```
+GET /points
+
+{
+  "points": 1000
+}
+```
+
+- 기본 배송비는 3000원입니다. 배송비는 최종 결제 금액에 포함됩니다.
+- 2만원 이상 구매 시 무료 배송입니다.
+- 최종 결제 버튼을 클릭하면 주문이 완료됩니다. Alert로 주문 완료 메시지를 띄웁니다.
+
+### 유의 사항
+
+- 과제에 대한 문의는 nunu@uglyus.co.kr 로 메일을 보내주세요.
+- GITHUB이나 블로그 등에 과제 내용을 공개하지 말아주세요.
+- 과제 제한시간은 48시간입니다.
+- 과제 제출은 메일로 nunu@uglyus.co.kr 로 과제 완료 메일을 보내주세요. node_modules 폴더는 제외하고 압축해서 보내주세요.
