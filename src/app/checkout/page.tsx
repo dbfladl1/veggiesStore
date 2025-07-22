@@ -1,7 +1,12 @@
-import React from 'react'
+import OrderSummary from '@/ui/molecule/orderSummary';
+import CheckoutList from '@/ui/organism/checkoutList';
+import React from 'react';
 
 export default function CheckoutPage() {
   return (
-    <div>page</div>
-  )
+    <>
+      <CheckoutList />
+      <OrderSummary/>
+    </>
+  );
 }
