@@ -4,3 +4,8 @@ export interface Product {
   price: number;
   stock: number;
 }
+
+
+export interface BasketItem extends Product {
+  count: number;
+}
